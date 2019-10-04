@@ -5,11 +5,16 @@ import ru.avalon.java.dev.ocpjp.labs.core.io.RandomFileReader;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.function.Function;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Абстрактное представление о товаре.
  */
 public interface Commodity {
+
     /**
      * Возвращает код товара.
      *
@@ -46,10 +51,11 @@ public interface Commodity {
     int getResidue();
 
     /**
-     * Абстрактное представление о реализации эталона
-     * проектирования "Строитель" для типа данных {@link Commodity}.
+     * Абстрактное представление о реализации эталона проектирования "Строитель"
+     * для типа данных {@link Commodity}.
      */
     interface CommodityBuilder extends Builder<Commodity> {
+
         /**
          * Устанавливает код товара.
          *
@@ -91,9 +97,8 @@ public interface Commodity {
         CommodityBuilder residue(int residue);
 
         /**
-         * Возвращает экземпляр типа {@link Commodity}
-         * проинициализированный согласно заданной
-         * конфигурации.
+         * Возвращает экземпляр типа {@link Commodity} проинициализированный
+         * согласно заданной конфигурации.
          *
          * @return экземпляр типа {@link Commodity}
          */
@@ -102,8 +107,8 @@ public interface Commodity {
     }
 
     /**
-     * Возвращает "Строитель", с использованием которого
-     * можно создавать экземпляры типа {@link Commodity}.
+     * Возвращает "Строитель", с использованием которого можно создавать
+     * экземпляры типа {@link Commodity}.
      *
      * @return экземпляр типа {@link CommodityBuilder}
      */
@@ -117,32 +122,35 @@ public interface Commodity {
          * Созданные реализации случше всего инкапсулировать
          * на уровне пакета.
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return new CommodityImp.CommodityBuilderImp();
     }
 
     /**
-     * Выполняет создание заданного количества случайных
-     * товаров.
+     * Выполняет создание заданного количества случайных товаров.
      *
-     * @param limit количество товаров в результирующей
-     *              коллекции
+     * @param limit количество товаров в результирующей коллекции
      * @return коллекцию экземпляров {@link Commodity}
      * @throws IOException в случае ошибки ввода-вывода
      */
     static Collection<Commodity> random(int limit) throws IOException {
         try (RandomFileReader reader = RandomFileReader.fromSystemResource("resources/household.csv")) {
+
             /*
              * TODO(Студент): Реализовать создание случайных объектов типа 'Commodity'
              * 1. Для создания коллекции следует использовать метод 'generate()' класса 'Stream'
              * 2. Для получения коллекции следует использовать метод 'collect()' класса 'Stream'
              */
-            throw new UnsupportedOperationException("Not implemented yet!");
+            return Stream.generate(reader::readLine)
+                    .limit(limit)
+                    .map(Commodity::valueOf)
+                    .collect(Collectors.toList());
+
         }
+
     }
 
     /**
-     * Выполняет создание экземпляра типа {@link Commodity}
-     * из строки.
+     * Выполняет создание экземпляра типа {@link Commodity} из строки.
      *
      * @param string строка, содержащая данные о товаре
      * @return экземпляр типа {@link Commodity}
@@ -153,6 +161,18 @@ public interface Commodity {
          * Реализация метода должна быть основана на формате
          * файла 'resources/household.csv'.
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        if (string != null) {
+            String[] values = string.split(";");
+            if (values.length == 5) {
+                return builder().code(values[0])
+                        .vendorCode(values[1])
+                        .name(values[2])
+                        .residue(Integer.valueOf(values[3]))
+                        .price(Double.valueOf(values[4]))
+                        .build();
+            }
+
+        }
+        return null;
     }
 }
