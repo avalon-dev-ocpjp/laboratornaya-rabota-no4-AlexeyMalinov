@@ -18,12 +18,16 @@ public class Main {
                 .max();
 
         //Найти товары с минимальным остатком
-        OptionalDouble minResidue = commodities.stream()
-                .mapToDouble(Commodity::getResidue)
-                .min();
+        int minResidue = commodities.stream()
+                .mapToInt(Commodity::getResidue)
+                .min()
+                .orElseThrow(IllegalStateException::new);
 
         //Найти товар, с самым длинным названием и вывести его на экран
-        OptionalInt maxNameLength = commodities.stream().mapToInt(commodity -> commodity.getName().length()).max();
+        int maxNameLength = commodities.stream()
+                .mapToInt(commodity -> commodity.getName().length())
+                .max()
+                .orElseThrow(IllegalStateException::new);
 
         //Выполнить сортировку коллекции commodities
         commodities.stream().sorted();
@@ -33,10 +37,10 @@ public class Main {
             if (maxPrice.equals(commodity.getPrice())) {
                 System.out.println("Максимальная стоимость у " + commodity.getName());
             }
-            if (minResidue.equals(commodity.getResidue())) {
+            if (minResidue == commodity.getResidue()) {
                 System.out.println("Минимальный остаток у " + commodity.getName());
             }
-            if (maxNameLength.equals(commodity.getName().length())) {
+            if (maxNameLength == commodity.getName().length()) {
                 System.out.println("Максимальная длина имени у " + commodity.getName());
             }
 
