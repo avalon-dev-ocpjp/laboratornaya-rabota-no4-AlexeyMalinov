@@ -114,7 +114,7 @@ public interface Commodity {
      */
     static CommodityBuilder builder() {
         /*
-         * TODO(Студент): Реализовать метод 'builder()' типа 'Commodity'
+         * (Студент): Реализовать метод 'builder()' типа 'Commodity'
          * В рамках задачи потребуется создать реализацию
          * интерфейса CommodityBuilder, что в свою очередь
          * потребует создания реализации для интерфейса Commodity.
@@ -136,7 +136,7 @@ public interface Commodity {
         try (RandomFileReader reader = RandomFileReader.fromSystemResource("resources/household.csv")) {
 
             /*
-             * TODO(Студент): Реализовать создание случайных объектов типа 'Commodity'
+             * (Студент): Реализовать создание случайных объектов типа 'Commodity'
              * 1. Для создания коллекции следует использовать метод 'generate()' класса 'Stream'
              * 2. Для получения коллекции следует использовать метод 'collect()' класса 'Stream'
              */
@@ -157,7 +157,7 @@ public interface Commodity {
      */
     static Commodity valueOf(String string) {
         /*
-         * TODO(Студент): реализовать метод 'parse()' класса 'Commodity'
+         * (Студент): реализовать метод 'parse()' класса 'Commodity'
          * Реализация метода должна быть основана на формате
          * файла 'resources/household.csv'.
          */
