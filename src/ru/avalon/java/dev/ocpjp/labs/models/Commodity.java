@@ -122,7 +122,7 @@ public interface Commodity {
          * Созданные реализации случше всего инкапсулировать
          * на уровне пакета.
          */
-        return new CommodityImp.CommodityBuilderImp();
+        return new CommodityImpl.CommodityBuilderImpl();
     }
 
     /**

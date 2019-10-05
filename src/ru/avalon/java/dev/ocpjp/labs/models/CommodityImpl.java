@@ -1,7 +1,7 @@
 package ru.avalon.java.dev.ocpjp.labs.models;
 
 
-class CommodityImp implements Commodity, Cloneable{
+class CommodityImpl implements Commodity, Cloneable{
 
     private String code;
     private String vendorCode;
@@ -10,11 +10,11 @@ class CommodityImp implements Commodity, Cloneable{
     private int residue;
     
 
-    static class CommodityBuilderImp implements CommodityBuilder{
+    static class CommodityBuilderImpl implements CommodityBuilder{
 
-        private final CommodityImp dummy = new CommodityImp();
+        private final CommodityImpl dummy = new CommodityImpl();
 
-        CommodityBuilderImp() {
+        CommodityBuilderImpl() {
         }
         
         @Override
@@ -48,8 +48,8 @@ class CommodityImp implements Commodity, Cloneable{
         }
 
         @Override
-        public CommodityImp build() {
-            return (CommodityImp) dummy.clone();
+        public CommodityImpl build() {
+            return (CommodityImpl) dummy.clone();
         }
     
     }
@@ -81,7 +81,7 @@ class CommodityImp implements Commodity, Cloneable{
     @Override
     protected Object clone(){
         try {
-                return (CommodityImp) super.clone();
+                return (CommodityImpl) super.clone();
             } catch (CloneNotSupportedException ex) {
                 throw new IllegalStateException(ex);
             }
