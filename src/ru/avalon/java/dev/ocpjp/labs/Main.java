@@ -3,6 +3,7 @@ package ru.avalon.java.dev.ocpjp.labs;
 import ru.avalon.java.dev.ocpjp.labs.models.Commodity;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -77,13 +78,21 @@ public class Main {
     }
 
     static double getMedian(double[] array) {
-        double median;
         if (array.length % 2 == 0) {
-            median = array[(array.length / 2) + 1];
+            return Arrays.stream(array)
+                    .sorted()
+                    .skip(array.length / 2 - 1)
+                    .limit(2)
+                    .average()
+                    .orElseThrow(IllegalStateException::new);
+                    
+           
         } else {
-            median = array[array.length / 2];
-
+            return Arrays.stream(array)
+                    .sorted()
+                    .skip(array.length / 2)
+                    .findFirst()
+                    .orElseThrow(IllegalStateException::new);
         }
-        return median;
     }
 }
